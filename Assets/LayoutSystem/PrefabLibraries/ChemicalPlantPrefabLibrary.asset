@@ -1,0 +1,75 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dce15f9f3e1fe264eaaeeb108d1dd4d0, type: 3}
+  m_Name: ChemicalPlantPrefabLibrary
+  m_EditorClassIdentifier: Assembly-CSharp::LayoutPrefabLibrary
+  mappings:
+  - nodeId: Monomer_Tank
+    machineName: monomer_tanks
+    prefab: {fileID: 919132149155446097, guid: 9bb83cf4c85fb4f44877700bc696a1e1, type: 3}
+    extraScale: {x: 1, y: 1, z: 1}
+    rotation: {x: -90, y: 0, z: 0}
+    offset: {x: 0, y: 0, z: 0}
+  - nodeId: drum_ibc_unloading_station
+    machineName: drum_ibc_unload
+    prefab: {fileID: 919132149155446097, guid: af5beace1a7b94645aa628cb98e7c728, type: 3}
+    extraScale: {x: 1, y: 1, z: 1}
+    rotation: {x: -90, y: 0, z: 0}
+    offset: {x: 0, y: 0, z: 0}
+  - nodeId: transfer_pump_skid
+    machineName: transfer_pump_skid
+    prefab: {fileID: 919132149155446097, guid: 38a949561b2c3e1449a5b1e634587107, type: 3}
+    extraScale: {x: 1, y: 1, z: 1}
+    rotation: {x: -90, y: 90, z: 0}
+    offset: {x: 0, y: 0, z: 0}
+  - nodeId: dcs_and_sis
+    machineName: dcs_sis
+    prefab: {fileID: 919132149155446097, guid: 7bdfb7153f93aac4d866447403800080, type: 3}
+    extraScale: {x: 1, y: 1, z: 1}
+    rotation: {x: -90, y: 90, z: 0}
+    offset: {x: 0, y: 0, z: 0}
+  - nodeId: nitrogen_generation_plant
+    machineName: n2_generator
+    prefab: {fileID: 919132149155446097, guid: 86842d414f1793a4d9e88651d1effef5, type: 3}
+    extraScale: {x: 1, y: 1, z: 1}
+    rotation: {x: 0, y: 90, z: 0}
+    offset: {x: 0, y: 0, z: 0}
+  - nodeId: genset_and_ups
+    machineName: genset_ups
+    prefab: {fileID: 919132149155446097, guid: 9dc6ca557948be94a9f86cc10f8d0765, type: 3}
+    extraScale: {x: 1, y: 1, z: 1}
+    rotation: {x: -90, y: 0, z: 0}
+    offset: {x: 0, y: 0, z: 0}
+  - nodeId: reactor_heat_exchange_skid
+    machineName: reactor_heat_skid
+    prefab: {fileID: 919132149155446097, guid: 44f5366dc1e0b284db2542c8e56aaeb6, type: 3}
+    extraScale: {x: 1, y: 1, z: 1}
+    rotation: {x: 0, y: 90, z: 0}
+    offset: {x: 0, y: 0, z: 0}
+  - nodeId: metering_blending_skid
+    machineName: blending_skid
+    prefab: {fileID: 919132149155446097, guid: 5da1145a12fc73c40994c4ae331a8ec3, type: 3}
+    extraScale: {x: 1, y: 1, z: 1}
+    rotation: {x: -90, y: 90, z: 0}
+    offset: {x: 0, y: 0, z: 0}
+  - nodeId: mes_server_rack
+    machineName: mes_server
+    prefab: {fileID: 919132149155446097, guid: 0703409d61e7373468295714874f9d37, type: 3}
+    extraScale: {x: 1, y: 1, z: 1}
+    rotation: {x: -90, y: 90, z: 0}
+    offset: {x: 0, y: 0, z: 0}
+  - nodeId: chiller_plant
+    machineName: chiller_plant
+    prefab: {fileID: 919132149155446097, guid: e1cbc9bb890b8794cabff907936304c1, type: 3}
+    extraScale: {x: 1, y: 1, z: 1}
+    rotation: {x: -90, y: 90, z: 0}
+    offset: {x: 0, y: 0, z: 0}

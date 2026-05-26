@@ -1,0 +1,1317 @@
+{
+  "meta": {
+    "factory_type": "chemical plant",
+    "description_prompt": "create a customer requirement description in natural language for the planning of a chemical plant.",
+    "generated_description": "Project title: Customer requirements for planning an automated emulsion-polymerization plant (acrylic latex production)\n\n1. High-level objective\n- Design a chemical production facility to manufacture water-based acrylic latex products used in decorative and industrial coatings. The plant shall be optimized for continuous operation and for minimal on-site human intervention; routine operations, monitoring, process control and most sampling/analysis must be automated. The plant will support multiple product grades with rapid changeover and full lot traceability.\n\n2. Target capacity and operating profile\n- Nominal annual output: 18,000 metric tonnes of finished latex (three main product families, each with multiple grades).\n- Availability target: ≥ 95% annual uptime (allowing for planned maintenance windows).\n- Typical operating mode: continuous reactor train producing product to finishers 24/7. Capability to run in semi-batch or batch mode for small-volume specialty grades (up to 5% of annual tonnage).\n- Typical instantaneous throughput: ~2.2 t/h average (scalable in design for ±20% flexibility).\n- Production must support scheduled product campaigns and emergency short-duration speed-ups (up to +30% throughput for <72 hours) without manual intervention beyond remote supervisory approval.\n\n3. Process scope and functional requirements\n- Inputs: aqueous phase (process water, buffers), monomers (butyl acrylate, methyl methacrylate, styrene, etc. — multiple monomer types), polymerization initiators and redox systems, surfactants/emulsifiers, chain transfer agents, pH control chemicals, preservatives, antifoam agents, and innocuous solvents for cleaning if needed.\n- Core process steps:\n  1. Automated raw-material receipt and unloading (liquid bulk and drum/IBC handling), automated lot identification and quarantine until quality verification.\n  2. Automated storage, inventory management and inerting/blanketing of monomer tanks. Temperature control and level monitoring for all storage tanks.\n  3. Metering/blending skids to prepare feed streams with automated dosing and mass-flow metering; automatic recipe selection and changeover.\n  4. Continuous emulsion polymerization in a modular reactor train (CSTRs with staged feeds and heat removal). Automated control of residence time, temperature, monomer feed ratios, initiator dosing and redox controls.\n  5. Inline PAT (process analytical technology): online particle-size analyzer, NIR/FTIR for residual monomer and solids, calorimetry/heat-flow monitoring for reaction control, online viscosity, pH, and conductivity sensors. Control loops shall use PAT feedback for closed-loop automatic adjustments.\n  6. Continuous finishing: neutralization, viscosity adjustment, coalescent or additive injection, degassing, filtration, and optional concentration (if required) using membrane or mechanical means. Automated removal of coagulum and solids.\n  7. VOC recovery / off-gas capture and solvent recovery systems sized to recover >95% of volatile monomer/solvent emissions; condensate handling and return to process or treatment.\n  8. Automated product transfer to finished-goods storage, dynamic inventory management, and automated packaging lines (drum/IBC filling, bag-in-box, bulk tanker loading) with robotic palletizing and labeling.\n  9. Integrated QC: automated sampling with closed-loop sample transfer to online analyzers and to the central laboratory as needed. Automatic pass/fail and hold-lot logic.\n- Outputs and by-products: finished latex grades, aqueous effluents (treated in on-site treatment or sent to municipal treatment per permit), recovered solvents, minor solid wastes (coagulum) and inertable waste streams. Waste streams must be segregated and labelled automatically by origin.\n\n4. Product quality targets and control\n- Each product grade must have defined specification sheets (example targets):\n  - Solids content: ±1% absolute (e.g., 45 ± 1 wt%)\n  - Viscosity: within grade-specific range (controlled by online viscometer)\n  - Particle size D50: target range 80–200 nm (grade dependent), with online monitoring\n  - Residual monomer: <500 ppm (typical), as monitored by online FTIR/NIR and verified by lab GC\n  - pH, conductivity, Tg, color (APHA), and biocide content within specification\n- Automatic batch/lot record generation (electronic), including feedstock lot IDs, time-stamped PAT data, alarms, operator actions, deviations and QC results.\n- Automated sample retention: retain defined aliquots automatically for a minimum of 12 months under controlled storage.\n\n5. Automation, control and data handling\n- Centralized DCS with redundant controllers, deterministic control loops for critical variables (temperature, pressure, flow, level).\n- PLCs on discrete equipment with OPC-UA or similar integration into the DCS/MES.\n- SIS (Safety Instrumented System) for critical overpressure, runaway reaction, inerting failure, and monomer loss scenarios; designed and documented to meet SIL 2 or SIL 3 as applicable to the risk analysis.\n- MES integration: recipe and campaign management, scheduling, electronic batch record, ERP interface for inventory and dispatch.\n- PAT integration: automatic closed-loop control where feasible to minimize manual intervention.\n- Data retention: continuous historian for raw and processed data with ≥ 5 years retention for critical process variables and 10 years of electronic batch records. Audit trail for all manual actions.\n- Cybersecurity: control network architecture and policies compliant with IEC 62443; role-based access control and multi-factor authentication for critical controls; remote access via secure VPN with logging.\n- Local HMIs limited to maintenance/override tasks. Normal operation to be performed from a centralized control room with minimal operator walk-throughs.\n\n6. Safety, environment and regulatory compliance\n- Hazard classification and equipment rating to meet ATEX/IECEx or equivalent for zones handling flammable monomers and VOCs.\n- Compliance targets: meet applicable local chemical safety regulations plus international standards where relevant: OSHA (or local equivalent), EPA air/wastewater effluent limits, REACH (for EU markets), ISO 9001 for quality management, ISO 14001 for environmental management (preferred).\n- Emissions:\n  - Capture and recovery systems targeted to reduce VOC emissions to below permit thresholds; design goal: recover ≥95% of volatile organics and keep stack concentration below 50 mg/Nm3 unless regulatory limits are stricter.\n  - Wastewater: design influent chemical oxygen demand (COD)/BOD controls; treat to meet local discharge limits (specify limits in the permitting phase).\n- Physical safety:\n  - Secondary containment for all liquid storage sized to at least 110% of the largest tank and designed for automated drainage/pumping to alarmed collection tanks.\n  - Automated fire detection and suppression systems appropriate for flammable-liquids; automatic deluge and localized suppression on reactor and storage islands.\n  - Explosion relief where necessary, gas detection network with automatic interlocks to isolate and inert areas.\n- Process safety:\n  - Perform HAZOP, LOPA and QRA during detailed design. Implement interlocks and emergency depressurization designed to safe state automatically.\n  - Monomer polymerization control: automatic inhibitor addition and temperature runaway detection with automatic quench and diversion to scrap if runaway is detected.\n\n7. Layout and internal plant flow constraints (process-focused)\n- Flow principle: linear, single-directional material flow from raw-material reception → storage → metering/blending → reactor train → finishing → finished-goods storage → packaging/dispatch. Minimize cross-flow and re-crossing of product streams to reduce contamination risk.\n- Zoning and segregation:\n  - Separate hazardous-monomer handling zone (inerted) from finished-goods packaging zone by a controlled-access buffer with different ventilation/exhaust systems.\n  - Dedicated, physically segregated skid modules for each reactor train to allow isolation and hot-swap during maintenance without plant shutdown.\n  - Designate clean packaging area (low-particulate) adjacent to finished-goods storage to minimize transfer distances. Packaging conveyors and robotics must be contained to the packaging zone with controlled pressurization if required.\n- Adjacency preferences:\n  - Reactor train, heat exchange, and VOC recovery systems should be colocated to minimize piping runs of hot/volatile streams and to improve control accuracy.\n  - PAT, sample extraction points and the central QC lab should be located near the finishing lines to enable fast verification and reduce sample transportation times.\n  - Packaging lines should be contiguous to finished-goods storage for automated bulk or package filling with minimal manual transfer.\n- Access and human interaction constraints:\n  - Design so that routine operator tasks (start/stop, setpoint changes, product changeovers) are performed from the control room or through secure remote interfaces.\n  - On-floor human presence minimized to maintenance/inspection roles and infrequent interventions. Provide safe walkways and remote diagnostics for equipment health checks.\n- Maintenance and redundancy constraints:\n  - Critical utilities and rotating equipment (pumps, compressors) should be N+1 redundant.\n  - Reactor train should be modular so individual reactors can be taken offline without interruption of the entire production line (i.e., bypass and parallelization capability).\n  - Sufficient local space on each skid for rapid exchange of sensors and valves by technicians; tool-less panels where safe and feasible.\n\n8. Utilities and support systems\n- Utilities required: process steam, hot oil (if required), chilled water, industrial cooling water, compressed instrument air (with dryers), instrument-quality nitrogen for inerting, laboratory nitrogen, campus electrical supply with redundant feeds and UPS for critical control systems, emergency generator sized for critical loads.\n- On-site wastewater pretreatment and neutralization; sludge handling for coagulum.\n- VOC/solvent recovery unit(s) sized for peak upset conditions and normal operation recovery targets.\n- Centralized instrument air and nitrogen generation with redundant units and automated switchover.\n- Steam and condensate systems with automated blowdown and heat reclamation where feasible.\n\n9. Operations, maintenance and staffing expectations\n- The plant shall be designed for minimal routine staffing: typical staffed roles for steady-state operation — single-shift remote supervision from the control room (1–2 operators per shift) with on-call maintenance and safety personnel available for rapid response.\n- On-site technician crew for maintenance and sampling tasks during scheduled windows. Staffing model should support 24/7 remote operations with rapid escalation procedures for safety events.\n- Provide comprehensive training packages, simulation environment (operator training simulator) and clear digital SOPs integrated with MES.\n- Predictive-maintenance sensors integrated to the CMMS and with remote diagnostics for vendors.\n\n10. Quality assurance, traceability and documentation\n- Full electronic batch record and lot traceability from feedstock lot numbers through to finished product and dispatch.\n- Automated hold logic and quarantining for off-spec product; automated diversion to recycle or waste handling lines with appropriate tagging and documentation.\n- Factory Acceptance Test (FAT) and Site Acceptance Test (SAT) plans to verify control strategies, PAT, packaging automation and safety interlocks.\n- Deliverables: P&IDs, ISA-compliant control narratives, instrument lists, electrical schematics, FAT/SAT documentation, operator manuals, maintenance manuals, training materials and safety documentation.\n\n11. Performance, testing and acceptance criteria\n- Demonstrate stable control of solids, particle size and residual monomer for each grade during commissioning runs.\n- Demonstrate VOC recovery performance and wastewater treatment meeting permit criteria before unrestricted operation.\n- Achieve specified availability and throughput during performance acceptance run (e.g., 7 consecutive days at nominal flow with QA pass rate ≥ 99% and targeted uptime ≥ 95%).\n\n12. Regulatory/contractual constraints and reporting\n- Provide required documentation for permitting: emissions estimates, risk assessment summaries, waste management plan, spill response plan and emergency response interface with local authorities.\n- Provide capability for automated regulatory reporting (emissions, process incidents, waste shipped) with exportable records and audit-ready logs.\n- Design and implement procedures and controls necessary to meet any customer-specific product safety or traceability requirements (e.g., specified shelf-life testing, allergen-free declarations if relevant).\n\n13. Additional priorities and optional capabilities\n- Modular skid-based construction and preassembly to accelerate commissioning and reduce on-site construction risk.\n- Optionally include remote vendor monitoring service for key equipment (e.g., compressors, vacuum systems) for predictive maintenance.\n- Optionally include additional PAT instruments (e.g., online GPC/MALLS or advanced NMR probes) for new product development support.\n- Future-proof piping and I/O allowances for additional monomers/additives to accommodate product portfolio growth without major reconstruction.\n\nEnd-user expectations summary\n- Fully automated, continuous-dominant production of waterborne acrylic latexes at 18,000 t/y with multiple grades and fast changeover, designed for minimal floor staffing and high availability.\n- Robust PAT, DCS/MES/SIS integration, strong emission and effluent controls, modular and redundant hardware to permit hot-swaps and maintain production continuity.\n- Full electronic traceability, lab and PAT verification, and compliance with applicable safety, environmental and quality standards.",
+    "batch_id": "03_10-14_50_12",
+    "batch_log": "/scenegen/checkpoint/offline_batch_03_10-14_50_12/offline_batch.jsonl",
+    "success": false,
+    "error": {
+      "error": "name '_solution_stats' is not defined"
+    },
+    "cycle": 1,
+    "run_id": 1
+  },
+  "solution": {
+    "reasoning": "Add targeted spatial separation constraints (distance / keep_out) for the largest overlap pairs. Where a weaker distance already existed (reactor_module_1 -> filtration_skid) remove and replace with a larger min_distance. Chosen min_distance values exceed reported overlap by ~1.0–1.5 m to provide a modest service corridor without over-constraining adjacency/order requirements.",
+    "production_graph": {
+      "nodes": [
+        {
+          "id": "raw_bulk_unloading_station",
+          "machine_name": "bulk_unload",
+          "process_step": "Raw-material receipt and unloading",
+          "machine_description": "Truck and rail bulk liquid unloading station with metered stainless-steel transfer pumps and Coriolis flowmeters. Includes emergency isolation and calibrated load-cell/tank gauging interface.",
+          "type": "station",
+          "is_modular": false,
+          "approx_width": 3.0,
+          "approx_depth": 4.0,
+          "x": -4.717854695637854,
+          "y": 9.19383906001844
+        },
+        {
+          "id": "drum_ibc_unloading_station",
+          "machine_name": "drum_ibc_unload",
+          "process_step": "Raw-material receipt and unloading",
+          "machine_description": "Automated drum/IBC handling and decanting station with hoist, hygienic transfer pumps and barcode/QR lot-scanner. Includes containment tray and integrated CIP connection.",
+          "type": "station",
+          "is_modular": true,
+          "approx_width": 4.0,
+          "approx_depth": 3.0,
+          "x": 0.3706701266550559,
+          "y": 2.3013934717902815
+        },
+        {
+          "id": "monomer_storage_tank_farm",
+          "machine_name": "monomer_tanks",
+          "process_step": "Monomer and chemical storage with inerting",
+          "machine_description": "Bank of stainless-steel storage tanks with nitrogen blanketing, jacket/temperature control, level transmitters and tank gauging. Inventory management I/O for DCS/MES integration.",
+          "type": "storage",
+          "is_modular": false,
+          "approx_width": 12.0,
+          "approx_depth": 8.0,
+          "x": -4.292995982386599,
+          "y": -12.966817836223733
+        },
+        {
+          "id": "transfer_pump_skid",
+          "machine_name": "transfer_pump_skid",
+          "process_step": "Monomer and chemical transfer",
+          "machine_description": "Redundant metering and transfer pump skid with positive-displacement pumps, isolation valves and flow/pressure instrumentation. Designed for N+1 pump redundancy.",
+          "type": "station",
+          "is_modular": true,
+          "approx_width": 3.0,
+          "approx_depth": 2.5,
+          "x": -2.1709304203407807,
+          "y": -1.242383021463146
+        },
+        {
+          "id": "metering_blending_skid",
+          "machine_name": "blending_skid",
+          "process_step": "Metering and blending",
+          "machine_description": "Metering and blending skid with mass-flow meters, dosing pumps, automated recipe controller and inline static mixers. Designed for automated recipe selection and rapid changeover.",
+          "type": "station",
+          "is_modular": true,
+          "approx_width": 4.0,
+          "approx_depth": 3.0,
+          "x": -0.4894976358951267,
+          "y": 0.8422804032443766
+        },
+        {
+          "id": "feed_buffer_tank",
+          "machine_name": "feed_buffer",
+          "process_step": "Feed surge and conditioning",
+          "machine_description": "Agitated buffer/surge tank with level control, sampling port and pH/temperature sensors for conditioned feed buffering. Includes sight glass and automated recirculation.",
+          "type": "buffer",
+          "is_modular": false,
+          "approx_width": 2.5,
+          "approx_depth": 2.5,
+          "x": 4.789346528589521,
+          "y": -11.510771769451239
+        },
+        {
+          "id": "reactor_module_1",
+          "machine_name": "reactor_CSTR_A",
+          "process_step": "Continuous emulsion polymerization (reactor train)",
+          "machine_description": "Modular CSTR reactor skid with jacketed vessel, staged feed ports, agitator and integrated heat-exchanger connections. Includes local control valves and bypass capability for hot-swap.",
+          "type": "station",
+          "is_modular": true,
+          "approx_width": 6.0,
+          "approx_depth": 3.0,
+          "x": 6.76778883842779,
+          "y": 7.237099471869044
+        },
+        {
+          "id": "reactor_module_2",
+          "machine_name": "reactor_CSTR_B",
+          "process_step": "Continuous emulsion polymerization (reactor train)",
+          "machine_description": "Modular CSTR reactor skid with jacketed vessel and staged-feed capability matching reactor_CSTR_A for cascade operation and parallel bypass. Includes instrumentation for residence-time control.",
+          "type": "station",
+          "is_modular": true,
+          "approx_width": 6.0,
+          "approx_depth": 3.0,
+          "x": 6.903747177013686,
+          "y": 4.36004745024852
+        },
+        {
+          "id": "reactor_module_3",
+          "machine_name": "reactor_CSTR_C",
+          "process_step": "Continuous emulsion polymerization (reactor train)",
+          "machine_description": "Modular CSTR reactor skid intended for cascade or modular expansion; includes heat removal, online sample ports and local control I/O. Supports hot-swap isolation without full-train shutdown.",
+          "type": "station",
+          "is_modular": true,
+          "approx_width": 6.0,
+          "approx_depth": 3.0,
+          "x": 6.7131316962880145,
+          "y": -8.761040249321548
+        },
+        {
+          "id": "reactor_heat_exchange_skid",
+          "machine_name": "reactor_heat_skid",
+          "process_step": "Reactor heat removal and utility exchange",
+          "machine_description": "Heat-exchange skid providing jacket/thermal oil/hot water duties with pumps, valves and heat-exchanger shells sized for reactor train duty. Includes plate or shell-and-tube exchangers.",
+          "type": "station",
+          "is_modular": true,
+          "approx_width": 4.0,
+          "approx_depth": 3.0,
+          "x": -1.435585936952408,
+          "y": -3.3614403570589944
+        },
+        {
+          "id": "inline_pat_rack",
+          "machine_name": "inline_PAT",
+          "process_step": "Inline PAT and process monitoring",
+          "machine_description": "Inline PAT rack with NIR/FTIR spectrometer, online particle-size analyzer, viscometer, pH and conductivity transmitters. Local sample conditioning, automated calibration interfaces and OPC-UA output.",
+          "type": "inspection",
+          "is_modular": true,
+          "approx_width": 2.0,
+          "approx_depth": 1.5,
+          "x": 6.923916610686511,
+          "y": -0.7348147936763835
+        },
+        {
+          "id": "finishing_skid",
+          "machine_name": "finishing_skid",
+          "process_step": "Continuous finishing (neutralization, additive dosing, degassing)",
+          "machine_description": "Finishing skid with dosing pumps, static mixers, degassing equipment and automated control for pH and viscosity adjustment. Includes coalescent/additive metering and injection points.",
+          "type": "station",
+          "is_modular": true,
+          "approx_width": 4.5,
+          "approx_depth": 3.0,
+          "x": 6.503461009829376,
+          "y": -2.732630362613231
+        },
+        {
+          "id": "filtration_skid",
+          "machine_name": "filtration_skid",
+          "process_step": "Filtration and coagulum removal",
+          "machine_description": "Automated filtration skid with cartridge/continuous filter systems, automated backflush/CIP and coagulum removal conveyors. Includes solids detection and divert-to-waste logic.",
+          "type": "station",
+          "is_modular": true,
+          "approx_width": 4.0,
+          "approx_depth": 3.0,
+          "x": 10.152055190119727,
+          "y": 8.802711064911463
+        },
+        {
+          "id": "concentrator_membrane_skid",
+          "machine_name": "membrane_concentrator",
+          "process_step": "Optional concentration (membrane/mechanical)",
+          "machine_description": "Crossflow membrane concentration skid with feed/retentate pumps, membranes and CIP provisions for solids concentration. Designed for plug-and-play installation and size-flexible elements.",
+          "type": "station",
+          "is_modular": true,
+          "approx_width": 3.5,
+          "approx_depth": 2.5,
+          "x": 12.719772696856547,
+          "y": 19.09142605991104
+        },
+        {
+          "id": "coagulum_dewatering_unit",
+          "machine_name": "coagulum_unit",
+          "process_step": "Coagulum/sludge handling",
+          "machine_description": "Coagulum collection and dewatering unit with decanter/press, labeled waste discharge and containment bunding. Includes automated solids transfer to waste drums or sludge storage.",
+          "type": "station",
+          "is_modular": false,
+          "approx_width": 4.0,
+          "approx_depth": 3.5,
+          "x": 14.143055450226388,
+          "y": 10.22720313327106
+        },
+        {
+          "id": "voc_recovery_unit",
+          "machine_name": "voc_recovery",
+          "process_step": "VOC capture and solvent recovery",
+          "machine_description": "VOC capture and solvent recovery unit with condensers, vacuum/compression and solvent collection tanks. Includes control for >95% recovery target and return-to-process routing.",
+          "type": "station",
+          "is_modular": true,
+          "approx_width": 6.0,
+          "approx_depth": 4.0,
+          "x": 6.760133387608917,
+          "y": 10.913145953125776
+        },
+        {
+          "id": "finished_goods_storage_tanks",
+          "machine_name": "finished_storage",
+          "process_step": "Finished-goods storage and inventory",
+          "machine_description": "Bank of finished-goods stainless-steel tanks with level and temperature control, inventory tagging and automated transfer pumps for packaging/tanker loading. Integrated with MES inventory.",
+          "type": "storage",
+          "is_modular": false,
+          "approx_width": 10.0,
+          "approx_depth": 6.0,
+          "x": 18.071913629015643,
+          "y": 5.60713011035473
+        },
+        {
+          "id": "packaging_filling_line",
+          "machine_name": "packaging_line",
+          "process_step": "Automated packaging and filling",
+          "machine_description": "Automated filling line for drums, IBCs and bag-in-box with mass-fillers, cappers, labelers and reject/divert logic. Designed for quick-retooling between package formats.",
+          "type": "station",
+          "is_modular": true,
+          "approx_width": 8.0,
+          "approx_depth": 3.5,
+          "x": 20.13193766541357,
+          "y": 10.183777648067206
+        },
+        {
+          "id": "packaging_conveyor",
+          "machine_name": "packaging_conveyor",
+          "process_step": "Packaging transfer",
+          "machine_description": "Modular conveyor sections for packaging area with hygienic rollers, speed synchronization and safety interlocks. Supports transfer to palletizing and labeling stations.",
+          "type": "conveyor",
+          "is_modular": true,
+          "approx_width": 6.0,
+          "approx_depth": 1.0,
+          "x": 20.1780466773768,
+          "y": -4.653226782133363
+        },
+        {
+          "id": "robotic_palletizer",
+          "machine_name": "robotic_palletizer",
+          "process_step": "Robotic palletizing and staging",
+          "machine_description": "Robotic palletizing cell with articulated robot, toolchanger for multiple pack formats and integrated pallet dispenser. Includes safety fencing and pallet weigh-check.",
+          "type": "robot",
+          "is_modular": true,
+          "approx_width": 3.0,
+          "approx_depth": 3.0,
+          "x": 22.238300763118975,
+          "y": 13.377139406052478
+        },
+        {
+          "id": "automated_sampling_skid",
+          "machine_name": "sampling_skid",
+          "process_step": "Automated sampling and sample transfer",
+          "machine_description": "Closed-loop automated sampling skid with sample valves, dilution/conditioning and automated transfer to inline PAT or central lab. Includes sample retention and refrigerated storage option.",
+          "type": "station",
+          "is_modular": true,
+          "approx_width": 2.0,
+          "approx_depth": 1.5,
+          "x": 5.488593575125838,
+          "y": 0.7217625687044674
+        },
+        {
+          "id": "central_qc_lab",
+          "machine_name": "qc_lab",
+          "process_step": "Central laboratory and verification",
+          "machine_description": "Central QC laboratory with GC, titration stations, particle-size offline instruments and controlled sample storage. Integrated LIMS/MES connection for automatic result capture.",
+          "type": "inspection",
+          "is_modular": false,
+          "approx_width": 6.0,
+          "approx_depth": 6.0,
+          "x": 10.886464211853996,
+          "y": -0.07176749459387248
+        },
+        {
+          "id": "wastewater_pretreatment_unit",
+          "machine_name": "wastewater_treatment",
+          "process_step": "Waste segregation and pretreatment",
+          "machine_description": "On-site wastewater pretreatment unit with neutralization, flotation/clarification and sludge handling. Includes monitored discharge and return lines for recovered solvent/condensate.",
+          "type": "station",
+          "is_modular": false,
+          "approx_width": 9.0,
+          "approx_depth": 6.0,
+          "x": 16.105730916078286,
+          "y": 14.899084310150636
+        },
+        {
+          "id": "nitrogen_generation_plant",
+          "machine_name": "n2_generator",
+          "process_step": "Utilities - nitrogen generation",
+          "machine_description": "Redundant nitrogen generation skid with PSA units, dryers and automatic switchover to provide instrument and purge-grade nitrogen. Includes instrumentation for purity monitoring.",
+          "type": "custom",
+          "is_modular": false,
+          "approx_width": 4.0,
+          "approx_depth": 3.0,
+          "x": -3.81561964834951,
+          "y": -6.003061014994714
+        },
+        {
+          "id": "instrument_air_system",
+          "machine_name": "instrument_air",
+          "process_step": "Utilities - instrument air",
+          "machine_description": "Compressed instrument air system with oil-free compressors, dryers, receivers and automatic switchover to backup compressors. Provides instrument-quality air to skids.",
+          "type": "custom",
+          "is_modular": false,
+          "approx_width": 4.0,
+          "approx_depth": 3.0,
+          "x": 2.6271235750723827,
+          "y": 3.6757074943351213
+        },
+        {
+          "id": "chiller_plant",
+          "machine_name": "chiller_plant",
+          "process_step": "Utilities - chilled water",
+          "machine_description": "Central chilled-water plant with redundant chillers, pumps and buffer tanks for process cooling and PAT enclosures. Designed for N+1 capacity.",
+          "type": "custom",
+          "is_modular": false,
+          "approx_width": 6.0,
+          "approx_depth": 4.0,
+          "x": 2.8577762301373717,
+          "y": -2.0070694457063114
+        },
+        {
+          "id": "steam_boiler_house",
+          "machine_name": "steam_boiler",
+          "process_step": "Utilities - steam generation",
+          "machine_description": "Process steam boiler with condensate return and automated blowdown controls. Includes safety interlocks and instrumentation for feedwater treatment.",
+          "type": "custom",
+          "is_modular": false,
+          "approx_width": 5.0,
+          "approx_depth": 4.0,
+          "x": 0.16582640960320036,
+          "y": 13.078355456597732
+        },
+        {
+          "id": "genset_and_ups",
+          "machine_name": "genset_ups",
+          "process_step": "Utilities - emergency power",
+          "machine_description": "Emergency diesel generator and UPS system sized to support critical controls, pumps and safety systems with automatic transfer switch. Includes fuel storage monitoring.",
+          "type": "custom",
+          "is_modular": false,
+          "approx_width": 5.0,
+          "approx_depth": 4.0,
+          "x": -7.498599095340227,
+          "y": -5.650952384565116
+        },
+        {
+          "id": "dcs_and_sis",
+          "machine_name": "dcs_sis",
+          "process_step": "Control & safety systems",
+          "machine_description": "Redundant DCS controllers with integrated SIS and OPC-UA servers for PLC integration and historian connectivity. Includes certified SIL-capable safety logic modules.",
+          "type": "custom",
+          "is_modular": false,
+          "approx_width": 2.0,
+          "approx_depth": 1.5,
+          "x": -2.9790290525864993,
+          "y": -7.988087101432913
+        },
+        {
+          "id": "mes_server_rack",
+          "machine_name": "mes_server",
+          "process_step": "MES and EBR",
+          "machine_description": "MES server rack for recipe and campaign management, electronic batch records (EBR) and ERP interfaces. Includes secure backup and hardened network gateway.",
+          "type": "custom",
+          "is_modular": false,
+          "approx_width": 1.5,
+          "approx_depth": 1.0,
+          "x": -1.8880345253822601,
+          "y": -6.178256754156433
+        }
+      ],
+      "edges": [
+        {
+          "from": "raw_bulk_unloading_station",
+          "to": "monomer_storage_tank_farm",
+          "relation": "material_flow",
+          "weight": 10,
+          "note": "raw bulk transfer to storage"
+        },
+        {
+          "from": "drum_ibc_unloading_station",
+          "to": "monomer_storage_tank_farm",
+          "relation": "material_flow",
+          "weight": 10,
+          "note": "drum/IBC decant to storage"
+        },
+        {
+          "from": "monomer_storage_tank_farm",
+          "to": "transfer_pump_skid",
+          "relation": "material_flow",
+          "weight": 9,
+          "note": "supply to transfer pumps"
+        },
+        {
+          "from": "transfer_pump_skid",
+          "to": "metering_blending_skid",
+          "relation": "material_flow",
+          "weight": 10,
+          "note": "metered feed to blending"
+        },
+        {
+          "from": "metering_blending_skid",
+          "to": "feed_buffer_tank",
+          "relation": "material_flow",
+          "weight": 10,
+          "note": "blended feed to surge buffer"
+        },
+        {
+          "from": "feed_buffer_tank",
+          "to": "reactor_module_1",
+          "relation": "material_flow",
+          "weight": 10,
+          "note": "conditioned feed to reactor train"
+        },
+        {
+          "from": "reactor_module_1",
+          "to": "reactor_module_2",
+          "relation": "material_flow",
+          "weight": 10,
+          "note": "cascade reactor flow"
+        },
+        {
+          "from": "reactor_module_2",
+          "to": "reactor_module_3",
+          "relation": "material_flow",
+          "weight": 10,
+          "note": "cascade reactor flow"
+        },
+        {
+          "from": "reactor_module_3",
+          "to": "finishing_skid",
+          "relation": "material_flow",
+          "weight": 10,
+          "note": "reactor effluent to finishing train"
+        },
+        {
+          "from": "finishing_skid",
+          "to": "filtration_skid",
+          "relation": "material_flow",
+          "weight": 9,
+          "note": "finishing to filtration"
+        },
+        {
+          "from": "filtration_skid",
+          "to": "concentrator_membrane_skid",
+          "relation": "material_flow",
+          "weight": 7,
+          "note": "optional concentration path (retentate)"
+        },
+        {
+          "from": "filtration_skid",
+          "to": "coagulum_dewatering_unit",
+          "relation": "material_flow",
+          "weight": 8,
+          "note": "diverted coagulum/waste"
+        },
+        {
+          "from": "concentrator_membrane_skid",
+          "to": "finished_goods_storage_tanks",
+          "relation": "material_flow",
+          "weight": 9,
+          "note": "concentrated product to FG storage"
+        },
+        {
+          "from": "finishing_skid",
+          "to": "finished_goods_storage_tanks",
+          "relation": "material_flow",
+          "weight": 9,
+          "note": "direct finished product to storage"
+        },
+        {
+          "from": "finished_goods_storage_tanks",
+          "to": "packaging_filling_line",
+          "relation": "material_flow",
+          "weight": 10,
+          "note": "storage to packaging"
+        },
+        {
+          "from": "packaging_filling_line",
+          "to": "packaging_conveyor",
+          "relation": "material_flow",
+          "weight": 10,
+          "note": "filled packages to conveyor"
+        },
+        {
+          "from": "packaging_conveyor",
+          "to": "robotic_palletizer",
+          "relation": "material_flow",
+          "weight": 9,
+          "note": "conveyor to palletizing"
+        },
+        {
+          "from": "reactor_module_1",
+          "to": "voc_recovery_unit",
+          "relation": "material_flow",
+          "weight": 6,
+          "note": "off-gas/vent capture"
+        },
+        {
+          "from": "reactor_module_2",
+          "to": "voc_recovery_unit",
+          "relation": "material_flow",
+          "weight": 6,
+          "note": "off-gas/vent capture"
+        },
+        {
+          "from": "reactor_module_3",
+          "to": "voc_recovery_unit",
+          "relation": "material_flow",
+          "weight": 6,
+          "note": "off-gas/vent capture"
+        },
+        {
+          "from": "finishing_skid",
+          "to": "voc_recovery_unit",
+          "relation": "material_flow",
+          "weight": 7,
+          "note": "finishing off-gas/solvent recovery"
+        },
+        {
+          "from": "voc_recovery_unit",
+          "to": "wastewater_pretreatment_unit",
+          "relation": "material_flow",
+          "weight": 5,
+          "note": "condensate/effluent routing to pretreatment"
+        },
+        {
+          "from": "coagulum_dewatering_unit",
+          "to": "wastewater_pretreatment_unit",
+          "relation": "material_flow",
+          "weight": 8,
+          "note": "solid/sludge discharge to pretreatment/sludge handling"
+        },
+        {
+          "from": "feed_buffer_tank",
+          "to": "automated_sampling_skid",
+          "relation": "material_flow",
+          "weight": 6,
+          "note": "auto-sample from feed (small-volume)"
+        },
+        {
+          "from": "reactor_module_3",
+          "to": "automated_sampling_skid",
+          "relation": "material_flow",
+          "weight": 6,
+          "note": "auto-sample from reactor effluent (small-volume)"
+        },
+        {
+          "from": "finishing_skid",
+          "to": "automated_sampling_skid",
+          "relation": "material_flow",
+          "weight": 6,
+          "note": "auto-sample from finishing (small-volume)"
+        },
+        {
+          "from": "automated_sampling_skid",
+          "to": "central_qc_lab",
+          "relation": "material_flow",
+          "weight": 8,
+          "note": "sample transfer to central QC lab"
+        },
+        {
+          "from": "reactor_module_2",
+          "to": "inline_pat_rack",
+          "relation": "material_flow",
+          "weight": 6,
+          "note": "process monitoring tap (small sample stream)"
+        },
+        {
+          "from": "finishing_skid",
+          "to": "inline_pat_rack",
+          "relation": "material_flow",
+          "weight": 6,
+          "note": "PAT tap for finishing analytics"
+        },
+        {
+          "from": "raw_bulk_unloading_station",
+          "to": "monomer_storage_tank_farm",
+          "relation": "order_along_axis",
+          "axis": "x",
+          "direction": "+x",
+          "weight": 9,
+          "note": "primary flow order - receipt to storage"
+        },
+        {
+          "from": "monomer_storage_tank_farm",
+          "to": "transfer_pump_skid",
+          "relation": "order_along_axis",
+          "axis": "x",
+          "direction": "+x",
+          "weight": 9,
+          "note": "storage to transfer pumps"
+        },
+        {
+          "from": "transfer_pump_skid",
+          "to": "metering_blending_skid",
+          "relation": "order_along_axis",
+          "axis": "x",
+          "direction": "+x",
+          "weight": 9,
+          "note": "transfer pumps to blending"
+        },
+        {
+          "from": "metering_blending_skid",
+          "to": "feed_buffer_tank",
+          "relation": "order_along_axis",
+          "axis": "x",
+          "direction": "+x",
+          "weight": 9,
+          "note": "blending to feed buffer"
+        },
+        {
+          "from": "feed_buffer_tank",
+          "to": "reactor_module_1",
+          "relation": "order_along_axis",
+          "axis": "x",
+          "direction": "+x",
+          "weight": 9,
+          "note": "feed to reactor train start"
+        },
+        {
+          "from": "reactor_module_1",
+          "to": "reactor_module_2",
+          "relation": "order_along_axis",
+          "axis": "x",
+          "direction": "+x",
+          "weight": 10,
+          "note": "maintain reactor cascade order"
+        },
+        {
+          "from": "reactor_module_2",
+          "to": "reactor_module_3",
+          "relation": "order_along_axis",
+          "axis": "x",
+          "direction": "+x",
+          "weight": 10,
+          "note": "maintain reactor cascade order"
+        },
+        {
+          "from": "reactor_module_3",
+          "to": "finishing_skid",
+          "relation": "order_along_axis",
+          "axis": "x",
+          "direction": "+x",
+          "weight": 9,
+          "note": "reactor effluent to finishing"
+        },
+        {
+          "from": "finishing_skid",
+          "to": "filtration_skid",
+          "relation": "order_along_axis",
+          "axis": "x",
+          "direction": "+x",
+          "weight": 8,
+          "note": "finishing to filtration ordering"
+        },
+        {
+          "from": "filtration_skid",
+          "to": "finished_goods_storage_tanks",
+          "relation": "order_along_axis",
+          "axis": "x",
+          "direction": "+x",
+          "weight": 9,
+          "note": "filtration -> finished goods storage"
+        },
+        {
+          "from": "finished_goods_storage_tanks",
+          "to": "packaging_filling_line",
+          "relation": "order_along_axis",
+          "axis": "x",
+          "direction": "+x",
+          "weight": 10,
+          "note": "storage to packaging order"
+        },
+        {
+          "from": "packaging_filling_line",
+          "to": "packaging_conveyor",
+          "relation": "order_along_axis",
+          "axis": "x",
+          "direction": "+x",
+          "weight": 10,
+          "note": "packaging line to conveyor"
+        },
+        {
+          "from": "packaging_conveyor",
+          "to": "robotic_palletizer",
+          "relation": "order_along_axis",
+          "axis": "x",
+          "direction": "+x",
+          "weight": 9,
+          "note": "conveyor to palletizer"
+        },
+        {
+          "from": "reactor_module_1",
+          "to": "reactor_module_2",
+          "relation": "same_line",
+          "weight": 10,
+          "note": "keep reactor train aligned on same axis for piping and bypass"
+        },
+        {
+          "from": "reactor_module_2",
+          "to": "reactor_module_3",
+          "relation": "same_line",
+          "weight": 10
+        },
+        {
+          "from": "reactor_module_1",
+          "to": "reactor_heat_exchange_skid",
+          "relation": "same_line",
+          "weight": 9,
+          "note": "colocate heat-exchange skid with reactor train"
+        },
+        {
+          "from": "reactor_module_2",
+          "to": "reactor_heat_exchange_skid",
+          "relation": "same_line",
+          "weight": 9
+        },
+        {
+          "from": "reactor_module_3",
+          "to": "reactor_heat_exchange_skid",
+          "relation": "same_line",
+          "weight": 9
+        },
+        {
+          "from": "voc_recovery_unit",
+          "to": "reactor_module_3",
+          "relation": "same_line",
+          "weight": 8,
+          "note": "prefer VOC recovery on same processing corridor"
+        },
+        {
+          "from": "finishing_skid",
+          "to": "inline_pat_rack",
+          "relation": "adjacency_preferred",
+          "weight": 10,
+          "target_distance": 2.0,
+          "note": "PAT close to finishing for fast feedback"
+        },
+        {
+          "from": "finishing_skid",
+          "to": "automated_sampling_skid",
+          "relation": "adjacency_preferred",
+          "weight": 9,
+          "target_distance": 3.0,
+          "note": "sampling near finishing for quick sample routing"
+        },
+        {
+          "from": "automated_sampling_skid",
+          "to": "inline_pat_rack",
+          "relation": "adjacency_preferred",
+          "weight": 9,
+          "target_distance": 2.0,
+          "note": "sample transfer path to PAT"
+        },
+        {
+          "from": "automated_sampling_skid",
+          "to": "central_qc_lab",
+          "relation": "adjacency_preferred",
+          "weight": 8,
+          "target_distance": 5.0,
+          "note": "central lab located near finishing/packaging"
+        },
+        {
+          "from": "packaging_filling_line",
+          "to": "packaging_conveyor",
+          "relation": "same_line",
+          "weight": 10,
+          "note": "keep packaging equipment on continuous line"
+        },
+        {
+          "from": "packaging_conveyor",
+          "to": "robotic_palletizer",
+          "relation": "same_line",
+          "weight": 9
+        },
+        {
+          "from": "monomer_storage_tank_farm",
+          "to": "packaging_filling_line",
+          "relation": "keep_out",
+          "weight": 10,
+          "min_distance": 20.0,
+          "note": "segregate hazardous monomer storage zone from clean packaging area"
+        },
+        {
+          "from": "raw_bulk_unloading_station",
+          "to": "packaging_filling_line",
+          "relation": "keep_out",
+          "weight": 8,
+          "min_distance": 15.0,
+          "note": "receipt zone separated from packaging (clean area buffer)"
+        },
+        {
+          "from": "drum_ibc_unloading_station",
+          "to": "packaging_filling_line",
+          "relation": "keep_out",
+          "weight": 6,
+          "min_distance": 10.0
+        },
+        {
+          "from": "instrument_air_system",
+          "to": "chiller_plant",
+          "relation": "adjacency_preferred",
+          "weight": 6,
+          "target_distance": 5.0
+        },
+        {
+          "from": "genset_and_ups",
+          "to": "dcs_and_sis",
+          "relation": "adjacency_preferred",
+          "weight": 7,
+          "target_distance": 5.0,
+          "note": "emergency power close to critical control systems (within acceptable separation)"
+        },
+        {
+          "from": "dcs_and_sis",
+          "to": "mes_server_rack",
+          "relation": "adjacency_preferred",
+          "weight": 9,
+          "target_distance": 2.0,
+          "note": "control and MES servers colocated for secure network topology"
+        },
+        {
+          "from": "reactor_module_1",
+          "to": "voc_recovery_unit",
+          "relation": "distance",
+          "weight": 6,
+          "target_distance": 3.0,
+          "note": "keep VOC recovery nearby but allowing service corridor"
+        },
+        {
+          "from": "chiller_plant",
+          "to": "reactor_heat_exchange_skid",
+          "relation": "adjacency_preferred",
+          "weight": 9,
+          "target_distance": 4.0,
+          "note": "chilled-water plant near reactor heat-exchange skid for efficient cooling supply"
+        },
+        {
+          "from": "instrument_air_system",
+          "to": "metering_blending_skid",
+          "relation": "adjacency_preferred",
+          "weight": 8,
+          "target_distance": 4.0,
+          "note": "instrument air close to metering/blending skids for valve actuators and instrument supply"
+        },
+        {
+          "from": "instrument_air_system",
+          "to": "automated_sampling_skid",
+          "relation": "adjacency_preferred",
+          "weight": 7,
+          "target_distance": 3.0,
+          "note": "dry instrument air proximate to sampling skid for reliable valve actuation and conditioning"
+        },
+        {
+          "from": "chiller_plant",
+          "to": "inline_pat_rack",
+          "relation": "adjacency_preferred",
+          "weight": 7,
+          "target_distance": 3.0,
+          "note": "chilled-water supply near PAT rack for instrument temperature control"
+        },
+        {
+          "from": "central_qc_lab",
+          "to": "inline_pat_rack",
+          "relation": "adjacency_preferred",
+          "weight": 9,
+          "target_distance": 3.0,
+          "note": "colocate inline PAT and central QC lab to minimize sample transfer time and support fast verification"
+        },
+        {
+          "from": "mes_server_rack",
+          "to": "genset_and_ups",
+          "relation": "adjacency_preferred",
+          "weight": 7,
+          "target_distance": 5.0,
+          "note": "backup power located near MES server rack to minimize critical-power distribution runs"
+        },
+        {
+          "from": "finished_goods_storage_tanks",
+          "to": "packaging_filling_line",
+          "relation": "adjacency_preferred",
+          "weight": 10,
+          "target_distance": 5.0,
+          "note": "increase separation slightly to resolve overlap while preserving adjacency to packaging"
+        },
+        {
+          "from": "filtration_skid",
+          "to": "voc_recovery_unit",
+          "relation": "adjacency_preferred",
+          "weight": 8,
+          "target_distance": 4.0,
+          "note": "provide service corridor between filtration and VOC recovery"
+        },
+        {
+          "from": "transfer_pump_skid",
+          "to": "chiller_plant",
+          "relation": "distance",
+          "weight": 8,
+          "min_distance": 5.0,
+          "note": "separate pump skid and chiller for service access and utilities routing"
+        },
+        {
+          "from": "reactor_module_1",
+          "to": "automated_sampling_skid",
+          "relation": "distance",
+          "weight": 8,
+          "min_distance": 2.0,
+          "note": "avoid physical collision while keeping sampling nearby"
+        },
+        {
+          "from": "reactor_heat_exchange_skid",
+          "to": "instrument_air_system",
+          "relation": "distance",
+          "weight": 7,
+          "min_distance": 3.0,
+          "note": "separate heat skid and air compressors/receivers for service and ventilation"
+        },
+        {
+          "from": "reactor_module_2",
+          "to": "central_qc_lab",
+          "relation": "keep_out",
+          "weight": 9,
+          "min_distance": 6.0,
+          "note": "segregate central lab from reactor zone to reduce contamination and traffic"
+        },
+        {
+          "from": "reactor_module_1",
+          "to": "reactor_module_2",
+          "relation": "distance",
+          "weight": 9,
+          "min_distance": 1.5,
+          "note": "enforce small gap between reactor modules while preserving same_line ordering"
+        },
+        {
+          "from": "reactor_module_2",
+          "to": "inline_pat_rack",
+          "relation": "distance",
+          "weight": 7,
+          "min_distance": 2.0,
+          "note": "remove overlap with PAT rack but keep analytics nearby"
+        },
+        {
+          "from": "finishing_skid",
+          "to": "central_qc_lab",
+          "relation": "adjacency_preferred",
+          "weight": 9,
+          "target_distance": 6.0,
+          "note": "increase target separation to remove overlap while keeping QC nearby"
+        },
+        {
+          "from": "reactor_module_1",
+          "to": "instrument_air_system",
+          "relation": "distance",
+          "weight": 9,
+          "min_distance": 5.0,
+          "note": "enforce separation between reactor skid and air compressors/receivers to remove large overlap and provide ventilation/service corridor"
+        },
+        {
+          "from": "reactor_module_2",
+          "to": "finishing_skid",
+          "relation": "distance",
+          "weight": 10,
+          "min_distance": 5.0,
+          "note": "increase enforced gap to eliminate significant overlap while preserving process ordering"
+        },
+        {
+          "from": "drum_ibc_unloading_station",
+          "to": "genset_and_ups",
+          "relation": "keep_out",
+          "weight": 9,
+          "min_distance": 6.5,
+          "note": "keep automated unloading clear of emergency power area (safety/access separation)"
+        },
+        {
+          "from": "drum_ibc_unloading_station",
+          "to": "chiller_plant",
+          "relation": "distance",
+          "weight": 8,
+          "min_distance": 5.0,
+          "note": "separate drum/IBC handling from chiller plant to reduce service conflicts and remove overlap"
+        },
+        {
+          "from": "transfer_pump_skid",
+          "to": "reactor_module_2",
+          "relation": "distance",
+          "weight": 9,
+          "min_distance": 4.0,
+          "note": "provide service/access separation between pump skid and reactor module 2 to resolve overlap while keeping flow connectivity"
+        },
+        {
+          "from": "voc_recovery_unit",
+          "to": "instrument_air_system",
+          "relation": "distance",
+          "weight": 8,
+          "min_distance": 4.0,
+          "note": "separate VOC recovery equipment from air compressors/receivers for safety and maintenance access"
+        },
+        {
+          "from": "reactor_heat_exchange_skid",
+          "to": "genset_and_ups",
+          "relation": "distance",
+          "weight": 8,
+          "min_distance": 4.0,
+          "note": "separate heat-exchange skid and emergency power for ventilation and service access"
+        },
+        {
+          "from": "metering_blending_skid",
+          "to": "chiller_plant",
+          "relation": "distance",
+          "weight": 8,
+          "min_distance": 4.5,
+          "note": "increase enforced gap to remove overlap while keeping cooling utility reasonably close"
+        },
+        {
+          "from": "reactor_heat_exchange_skid",
+          "to": "voc_recovery_unit",
+          "relation": "distance",
+          "weight": 9,
+          "min_distance": 3.5,
+          "note": "replace previous soft adjacency with a small enforced gap to eliminate collision while maintaining corridor proximity"
+        },
+        {
+          "from": "metering_blending_skid",
+          "to": "automated_sampling_skid",
+          "relation": "distance",
+          "weight": 7,
+          "min_distance": 2.5,
+          "note": "clear service/access gap between blending skid and sampling rack to resolve small overlap"
+        },
+        {
+          "from": "monomer_storage_tank_farm",
+          "to": "nitrogen_generation_plant",
+          "relation": "adjacency_preferred",
+          "weight": 9,
+          "target_distance": 7.0,
+          "note": "increase preferred separation (still colocated) to remove overlap while preserving short inerting piping runs"
+        },
+        {
+          "from": "transfer_pump_skid",
+          "to": "inline_pat_rack",
+          "relation": "distance",
+          "weight": 7,
+          "min_distance": 2.5,
+          "note": "small separation to eliminate overlap between pump skid and PAT rack while keeping analytics nearby"
+        },
+        {
+          "from": "metering_blending_skid",
+          "to": "reactor_module_1",
+          "relation": "distance",
+          "weight": 10,
+          "min_distance": 5.5,
+          "note": "resolve overlap: service corridor between metering/blending and reactor 1 while preserving process order"
+        },
+        {
+          "from": "monomer_storage_tank_farm",
+          "to": "genset_and_ups",
+          "relation": "keep_out",
+          "weight": 10,
+          "min_distance": 8.0,
+          "note": "safety segregation: hazardous monomer storage separated from emergency power"
+        },
+        {
+          "from": "reactor_module_3",
+          "to": "finishing_skid",
+          "relation": "distance",
+          "weight": 9,
+          "min_distance": 5.5,
+          "note": "clear service corridor between reactor 3 and finishing to remove overlap while preserving short piping runs"
+        },
+        {
+          "from": "reactor_module_3",
+          "to": "central_qc_lab",
+          "relation": "keep_out",
+          "weight": 9,
+          "min_distance": 6.0,
+          "note": "segregate central lab from reactor zone to reduce contamination risk and remove overlap"
+        },
+        {
+          "from": "metering_blending_skid",
+          "to": "voc_recovery_unit",
+          "relation": "distance",
+          "weight": 7,
+          "min_distance": 3.5,
+          "note": "prevent equipment collision between blending skid and VOC recovery"
+        },
+        {
+          "from": "transfer_pump_skid",
+          "to": "instrument_air_system",
+          "relation": "distance",
+          "weight": 8,
+          "min_distance": 3.5,
+          "note": "separate pump skid from air compressors/receivers for ventilation and maintenance access"
+        },
+        {
+          "from": "finished_goods_storage_tanks",
+          "to": "packaging_conveyor",
+          "relation": "distance",
+          "weight": 8,
+          "min_distance": 3.5,
+          "note": "resolve overlap while preserving adjacency between finished-goods tanks and packaging"
+        },
+        {
+          "from": "reactor_module_3",
+          "to": "inline_pat_rack",
+          "relation": "distance",
+          "weight": 7,
+          "min_distance": 3.5,
+          "note": "provide service gap between reactor 3 and PAT rack while keeping analytics nearby"
+        },
+        {
+          "from": "filtration_skid",
+          "to": "voc_recovery_unit",
+          "relation": "distance",
+          "weight": 7,
+          "min_distance": 3.0,
+          "note": "small enforced gap to eliminate overlap with VOC recovery while keeping service corridor"
+        },
+        {
+          "from": "packaging_filling_line",
+          "to": "packaging_conveyor",
+          "relation": "distance",
+          "weight": 9,
+          "min_distance": 2.5,
+          "note": "ensure non-overlapping placement while preserving same-line connectivity"
+        },
+        {
+          "from": "nitrogen_generation_plant",
+          "to": "genset_and_ups",
+          "relation": "distance",
+          "weight": 7,
+          "min_distance": 3.0,
+          "note": "separate nitrogen generation and emergency power to remove overlap and allow service access"
+        }
+      ]
+    },
+    "layout_objectives": [
+      "linear_single_direction_flow",
+      "colocate_reactor_heat_and_voc_recovery",
+      "minimize_distance_finishing_to_QC_and_storage",
+      "minimize_crossing_of_process_lines"
+    ],
+    "layout_diagnostics": {
+      "total_score": 465.4740686148935,
+      "per_relation_costs": {
+        "order_along_axis": 0.7589987857631165,
+        "adjacency_preferred": 24.68389312871518,
+        "distance": 2.742305849728129,
+        "keep_out": 0.0171433129352326,
+        "min_distance": 0.0919467710889111,
+        "overlap": 437.17978076666293
+      },
+      "violations": [
+        {
+          "relation": "overlap",
+          "from": "drum_ibc_unloading_station",
+          "to": "metering_blending_skid",
+          "amount": 4.838126461644695
+        },
+        {
+          "relation": "overlap",
+          "from": "finishing_skid",
+          "to": "chiller_plant",
+          "amount": 4.4510748488235885
+        },
+        {
+          "relation": "overlap",
+          "from": "drum_ibc_unloading_station",
+          "to": "instrument_air_system",
+          "amount": 2.8344591799482517
+        },
+        {
+          "relation": "overlap",
+          "from": "nitrogen_generation_plant",
+          "to": "genset_and_ups",
+          "amount": 2.5718919475795596
+        },
+        {
+          "relation": "overlap",
+          "from": "reactor_module_1",
+          "to": "filtration_skid",
+          "amount": 2.3175896138643624
+        },
+        {
+          "relation": "overlap",
+          "from": "filtration_skid",
+          "to": "voc_recovery_unit",
+          "amount": 2.2345293602541934
+        },
+        {
+          "relation": "overlap",
+          "from": "transfer_pump_skid",
+          "to": "reactor_heat_exchange_skid",
+          "amount": 1.7443391178105758
+        },
+        {
+          "relation": "overlap",
+          "from": "reactor_module_2",
+          "to": "instrument_air_system",
+          "amount": 1.6750938218198095
+        },
+        {
+          "relation": "overlap",
+          "from": "finishing_skid",
+          "to": "central_qc_lab",
+          "amount": 1.5945260044648406
+        },
+        {
+          "relation": "overlap",
+          "from": "reactor_heat_exchange_skid",
+          "to": "chiller_plant",
+          "amount": 1.5161826894308716
+        },
+        {
+          "relation": "overlap",
+          "from": "nitrogen_generation_plant",
+          "to": "mes_server_rack",
+          "amount": 1.5007461717861534
+        },
+        {
+          "relation": "overlap",
+          "from": "transfer_pump_skid",
+          "to": "metering_blending_skid",
+          "amount": 1.2099592831361055
+        },
+        {
+          "relation": "overlap",
+          "from": "finished_goods_storage_tanks",
+          "to": "packaging_filling_line",
+          "amount": 1.203061921506653
+        },
+        {
+          "relation": "overlap",
+          "from": "metering_blending_skid",
+          "to": "chiller_plant",
+          "amount": 1.0753465087091
+        },
+        {
+          "relation": "overlap",
+          "from": "reactor_module_1",
+          "to": "reactor_module_2",
+          "amount": 0.720972067403888
+        },
+        {
+          "relation": "overlap",
+          "from": "inline_pat_rack",
+          "to": "finishing_skid",
+          "amount": 0.713567044465773
+        },
+        {
+          "relation": "distance",
+          "from": "reactor_module_1",
+          "to": "voc_recovery_unit",
+          "amount": 0.6760554525737428
+        },
+        {
+          "relation": "overlap",
+          "from": "reactor_heat_exchange_skid",
+          "to": "nitrogen_generation_plant",
+          "amount": 0.5805624526758212
+        },
+        {
+          "relation": "overlap",
+          "from": "nitrogen_generation_plant",
+          "to": "dcs_and_sis",
+          "amount": 0.573247056477079
+        },
+        {
+          "relation": "overlap",
+          "from": "coagulum_dewatering_unit",
+          "to": "finished_goods_storage_tanks",
+          "amount": 0.39902417302515225
+        }
+      ],
+      "overlap_count": 32,
+      "overlap_area": 35.392155407984816
+    },
+    "layout_healing": {
+      "enabled": true,
+      "max_attempts": 3,
+      "attempts_used": 3,
+      "stopped_reason": "max_attempts_reached",
+      "remaining_violations": 20,
+      "history": [
+        {
+          "attempt": 1,
+          "before_total_score": 2783.261126259515,
+          "before_violation_count": 20,
+          "after_total_score": 1768.8942980075265,
+          "after_violation_count": 20
+        },
+        {
+          "attempt": 2,
+          "before_total_score": 1768.8942980075265,
+          "before_violation_count": 20,
+          "after_total_score": 705.9132862420788,
+          "after_violation_count": 20
+        },
+        {
+          "attempt": 3,
+          "before_total_score": 705.9132862420788,
+          "before_violation_count": 20,
+          "after_total_score": 465.4740686148935,
+          "after_violation_count": 20
+        }
+      ]
+    }
+  }
+}
