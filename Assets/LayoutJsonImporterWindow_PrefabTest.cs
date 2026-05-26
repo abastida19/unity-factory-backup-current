@@ -43,6 +43,7 @@ public class LayoutJsonImporterWindow_PrefabTest : EditorWindow
     private string outScenePath = "Assets/Scenes/Generated/LayoutGenerated_PrefabTest.unity";
 
     private LayoutPrefabLibrary prefabLibrary;
+    private GameObject uiCanvasPrefab;
 
     private Vector2 scrollPos;
 
@@ -97,6 +98,14 @@ public class LayoutJsonImporterWindow_PrefabTest : EditorWindow
         );
 
         EditorGUILayout.Space(8);
+        uiCanvasPrefab = (GameObject)EditorGUILayout.ObjectField(
+            "UI Canvas Prefab",
+            uiCanvasPrefab,
+            typeof(GameObject),
+            false
+        );
+
+        EditorGUILayout.Space(8);
         scale = EditorGUILayout.FloatField("Scale (coords & sizes)", scale);
         boxHeight = EditorGUILayout.FloatField("Box Height (Y)", boxHeight);
         labelHeight = EditorGUILayout.FloatField("Label Height Offset", labelHeight);
@@ -128,7 +137,8 @@ public class LayoutJsonImporterWindow_PrefabTest : EditorWindow
                         connectorHeight,
                         connectorThickness,
                         minRelationWeight,
-                        showLegend
+                        showLegend,
+                        uiCanvasPrefab
                     );
                 }
                 catch (Exception e)
@@ -158,7 +168,8 @@ public class LayoutJsonImporterWindow_PrefabTest : EditorWindow
         float connectorHeight,
         float connectorThickness,
         int minRelationWeight,
-        bool showLegend)
+        bool showLegend,
+        GameObject uiCanvasPrefab)
     {
         if (!outSceneAssetPath.StartsWith("Assets/"))
             throw new Exception("Output scene path must start with 'Assets/'.");
@@ -204,6 +215,12 @@ public class LayoutJsonImporterWindow_PrefabTest : EditorWindow
         camGo.transform.rotation = Quaternion.Euler(0f, 0f, 0f);
         camGo.AddComponent<FreeFlyCameraController>();
         camGo.AddComponent<MachineClickManager>();
+
+        if (uiCanvasPrefab != null)
+        {
+            GameObject ui = (GameObject)PrefabUtility.InstantiatePrefab(uiCanvasPrefab);
+            ui.name = "RelationUI_Canvas";
+        }
 
         var nodesParent = new GameObject("Nodes");
         nodesParent.transform.SetParent(rootGo.transform, false);
@@ -746,12 +763,4 @@ public class LayoutJsonImporterWindow_PrefabTest : EditorWindow
             current = next;
         }
     }
-}
-
-public class GeneratedComponentTag_PrefabTest : MonoBehaviour
-{
-    public string id;
-    public string machine_name;
-    public string process_step;
-    public string type;
 }

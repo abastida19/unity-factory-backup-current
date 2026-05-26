@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class MachineClickManager : MonoBehaviour
@@ -20,49 +21,20 @@ public class MachineClickManager : MonoBehaviour
             cam = Camera.main;
 
         if (cam == null)
-        {
-            Debug.LogWarning("MachineClickManager: No camera found.");
             return;
-        }
 
         Ray ray = cam.ScreenPointToRay(Input.mousePosition);
         RaycastHit[] hits = Physics.RaycastAll(ray, clickDistance);
 
         if (hits == null || hits.Length == 0)
         {
-            Debug.Log("Click hit nothing.");
+            ClearSelection();
             return;
         }
 
-        System.Array.Sort(hits, (a, b) => a.distance.CompareTo(b.distance));
+        Array.Sort(hits, (a, b) => a.distance.CompareTo(b.distance));
 
-        // 1) FIRST: check if user clicked a relation line
-        foreach (RaycastHit hit in hits)
-        {
-            RelationInfo relationInfo =
-                hit.collider.GetComponentInParent<RelationInfo>();
-
-            if (relationInfo == null)
-                relationInfo = hit.collider.GetComponentInChildren<RelationInfo>();
-
-            if (relationInfo == null)
-                continue;
-
-            Debug.Log(relationInfo.GetDisplayText());
-
-            if (RelationInfoPanel.Instance != null)
-            {
-                RelationInfoPanel.Instance.Show(relationInfo);
-            }
-            else
-            {
-                Debug.LogWarning("RelationInfoPanel.Instance is null.");
-            }
-
-            return;
-        }
-
-        // 2) SECOND: check if user clicked a machine click proxy
+        // 1. FIRST PRIORITY: invisible click proxies
         foreach (RaycastHit hit in hits)
         {
             if (!hit.collider.name.StartsWith("ClickProxy_"))
@@ -78,10 +50,32 @@ public class MachineClickManager : MonoBehaviour
             return;
         }
 
-        // 3) THIRD: fallback to any generated machine collider
+        // 2. SECOND PRIORITY: relation lines
         foreach (RaycastHit hit in hits)
         {
-            if (hit.collider.name == "Ground")
+            RelationInfo relationInfo =
+                hit.collider.GetComponentInParent<RelationInfo>();
+
+            if (relationInfo == null)
+                continue;
+
+            Debug.Log(relationInfo.GetDisplayText());
+
+            if (RelationManager.Instance != null)
+                RelationManager.Instance.ShowOnlyRelation(relationInfo.gameObject);
+
+            if (RelationInfoPanel.Instance != null)
+                RelationInfoPanel.Instance.Show(relationInfo);
+            else
+                Debug.LogWarning("RelationInfoPanel.Instance is null. Is the Canvas in the scene?");
+
+            return;
+        }
+
+        // 3. THIRD PRIORITY: normal machine colliders
+        foreach (RaycastHit hit in hits)
+        {
+            if (hit.collider.GetComponentInParent<RelationInfo>() != null)
                 continue;
 
             GeneratedComponentTag_PrefabTest tag =
@@ -97,7 +91,7 @@ public class MachineClickManager : MonoBehaviour
             return;
         }
 
-        Debug.Log("Click did not hit relation, machine proxy, or generated machine.");
+        ClearSelection();
     }
 
     private void SelectMachine(string nodeId)
@@ -108,12 +102,17 @@ public class MachineClickManager : MonoBehaviour
             RelationInfoPanel.Instance.Hide();
 
         if (RelationManager.Instance != null)
-        {
             RelationManager.Instance.ShowRelationsForNode(nodeId);
-        }
         else
-        {
             Debug.LogWarning("RelationManager.Instance is null.");
-        }
+    }
+
+    private void ClearSelection()
+    {
+        if (RelationInfoPanel.Instance != null)
+            RelationInfoPanel.Instance.Hide();
+
+        if (RelationManager.Instance != null)
+            RelationManager.Instance.HideAllRelations();
     }
 }

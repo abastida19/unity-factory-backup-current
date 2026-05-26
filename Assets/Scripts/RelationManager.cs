@@ -97,4 +97,20 @@ public class RelationManager : MonoBehaviour
                 record.relationObject.SetActive(false);
         }
     }
+
+    public void ShowOnlyRelation(GameObject selectedRelation)
+    {
+        HideAllRelations();
+
+        if (selectedRelation == null)
+            return;
+
+        selectedRelation.SetActive(true);
+
+        RelationVisual visual = selectedRelation.GetComponent<RelationVisual>();
+        if (visual != null)
+            visual.ShowAsSelectedRelation();
+
+        Debug.Log("Showing only selected relation: " + selectedRelation.name);
+    }
 }

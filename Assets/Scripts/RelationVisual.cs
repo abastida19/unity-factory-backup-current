@@ -84,4 +84,12 @@ public class RelationVisual : MonoBehaviour
         mat.color = color;
         return mat;
     }
+
+    public void ShowAsSelectedRelation()
+    {
+        ResetToRelationColor();
+
+        if (segA != null)
+            segA.sharedMaterial = blackMaterial;
+    }
 }
