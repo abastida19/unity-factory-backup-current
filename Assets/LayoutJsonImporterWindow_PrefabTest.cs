@@ -300,6 +300,10 @@ public class LayoutJsonImporterWindow_PrefabTest : EditorWindow
             tm.anchor = TextAnchor.MiddleCenter;
             tm.alignment = TextAlignment.Center;
 
+            var proximityLabel = textGo.AddComponent<MachineProximityLabel>();
+            proximityLabel.showDistance = 12f;
+            proximityLabel.hideDistance = 14f;
+
             Bounds b;
             if (TryGetObjectBounds(go, out b))
             {
