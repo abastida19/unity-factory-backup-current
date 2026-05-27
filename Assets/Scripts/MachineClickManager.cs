@@ -46,7 +46,7 @@ public class MachineClickManager : MonoBehaviour
             if (tag == null)
                 continue;
 
-            SelectMachine(tag.id);
+            SelectMachine(tag);
             return;
         }
 
@@ -66,6 +66,9 @@ public class MachineClickManager : MonoBehaviour
 
             if (RelationInfoPanel.Instance != null)
                 RelationInfoPanel.Instance.Show(relationInfo);
+
+            if (MachineInfoPanel.Instance != null)
+                MachineInfoPanel.Instance.Hide();
             else
                 Debug.LogWarning("RelationInfoPanel.Instance is null. Is the Canvas in the scene?");
 
@@ -87,22 +90,28 @@ public class MachineClickManager : MonoBehaviour
             if (tag == null)
                 continue;
 
-            SelectMachine(tag.id);
+            SelectMachine(tag);
             return;
         }
 
         ClearSelection();
     }
 
-    private void SelectMachine(string nodeId)
+    private void SelectMachine(GeneratedComponentTag_PrefabTest tag)
     {
-        Debug.Log("Clicked machine: " + nodeId);
+        if (tag == null)
+            return;
+
+        Debug.Log("Clicked machine: " + tag.id);
 
         if (RelationInfoPanel.Instance != null)
             RelationInfoPanel.Instance.Hide();
 
+        if (MachineInfoPanel.Instance != null)
+            MachineInfoPanel.Instance.Show(tag);
+
         if (RelationManager.Instance != null)
-            RelationManager.Instance.ShowRelationsForNode(nodeId);
+            RelationManager.Instance.ShowRelationsForNode(tag.id);
         else
             Debug.LogWarning("RelationManager.Instance is null.");
     }
@@ -114,5 +123,8 @@ public class MachineClickManager : MonoBehaviour
 
         if (RelationManager.Instance != null)
             RelationManager.Instance.HideAllRelations();
+
+        if (MachineInfoPanel.Instance != null)
+            MachineInfoPanel.Instance.Hide();
     }
 }
