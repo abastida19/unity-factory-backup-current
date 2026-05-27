@@ -16,6 +16,8 @@ public class RelationVisual : MonoBehaviour
 
     private Material relationMaterial;
     private Material blackMaterial;
+    private Material hoverMaterial;
+    private bool isHovering = false;
 
     public void Setup(string fromNode, string toNode, Color color)
     {
@@ -36,6 +38,8 @@ public class RelationVisual : MonoBehaviour
     {
         relationMaterial = CreateMaterial(relationColor);
         blackMaterial = CreateMaterial(Color.black);
+        Color hoverColor = Color.Lerp(relationColor, Color.white, 0.45f);
+        hoverMaterial = CreateMaterial(hoverColor);
     }
 
     public void ShowForNode(string selectedNode)
@@ -60,6 +64,29 @@ public class RelationVisual : MonoBehaviour
         if (segA != null) segA.sharedMaterial = relationMaterial;
         if (segB != null) segB.sharedMaterial = relationMaterial;
         if (segC != null) segC.sharedMaterial = relationMaterial;
+    }
+
+    public void SetHover(bool hover)
+    {
+        if (isHovering == hover)
+            return;
+
+        isHovering = hover;
+
+        if (hover)
+            ApplyHoverColor();
+        else
+            ResetToRelationColor();
+    }
+
+    private void ApplyHoverColor()
+    {
+        if (hoverMaterial == null)
+            return;
+
+        if (segA != null) segA.sharedMaterial = hoverMaterial;
+        if (segB != null) segB.sharedMaterial = hoverMaterial;
+        if (segC != null) segC.sharedMaterial = hoverMaterial;
     }
 
     private Material CreateMaterial(Color color)
