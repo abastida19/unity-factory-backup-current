@@ -77,4 +77,29 @@ public class CameraFocusController : MonoBehaviour
 
         return true;
     }
+
+    public void FocusOnRelation(GameObject relationObject)
+    {
+        if (relationObject == null)
+            return;
+
+        Bounds b;
+        if (TryGetBounds(relationObject, out b))
+        {
+            // Look slightly below the center of the relation,
+            // so the camera gets a more horizontal view instead of only looking at the top line.
+            targetPoint = new Vector3(
+                b.center.x,
+                Mathf.Lerp(b.min.y, b.max.y, 0.45f),
+                b.center.z
+            );
+        }
+        else
+        {
+            targetPoint = relationObject.transform.position;
+        }
+
+        timer = 0f;
+        isFocusing = true;
+    }
 }

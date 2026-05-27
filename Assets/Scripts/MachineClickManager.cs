@@ -64,6 +64,9 @@ public class MachineClickManager : MonoBehaviour
             if (RelationManager.Instance != null)
                 RelationManager.Instance.ShowOnlyRelation(relationInfo.gameObject);
 
+            if (CameraFocusController.Instance != null)
+                CameraFocusController.Instance.FocusOnRelation(relationInfo.gameObject);
+
             if (RelationInfoPanel.Instance != null)
                 RelationInfoPanel.Instance.Show(relationInfo);
 
