@@ -69,6 +69,9 @@ public class MachineClickManager : MonoBehaviour
 
             if (MachineInfoPanel.Instance != null)
                 MachineInfoPanel.Instance.Hide();
+
+            if (MachineSelectionOutlineManager.Instance != null)
+                MachineSelectionOutlineManager.Instance.ClearSelection();
             else
                 Debug.LogWarning("RelationInfoPanel.Instance is null. Is the Canvas in the scene?");
 
@@ -110,6 +113,11 @@ public class MachineClickManager : MonoBehaviour
         if (MachineInfoPanel.Instance != null)
             MachineInfoPanel.Instance.Show(tag);
 
+        GameObject selectedObject = ResolveMachineObject(tag);
+
+        if (MachineSelectionOutlineManager.Instance != null)
+            MachineSelectionOutlineManager.Instance.Select(selectedObject);
+
         if (RelationManager.Instance != null)
             RelationManager.Instance.ShowRelationsForNode(tag.id);
         else
@@ -124,7 +132,33 @@ public class MachineClickManager : MonoBehaviour
         if (RelationManager.Instance != null)
             RelationManager.Instance.HideAllRelations();
 
+        if (MachineSelectionOutlineManager.Instance != null)
+            MachineSelectionOutlineManager.Instance.ClearSelection();
+
         if (MachineInfoPanel.Instance != null)
             MachineInfoPanel.Instance.Hide();
+    }
+
+    private GameObject ResolveMachineObject(GeneratedComponentTag_PrefabTest tag)
+    {
+        if (tag == null)
+            return null;
+
+        ClickProxyTarget proxyTarget = tag.GetComponent<ClickProxyTarget>();
+
+        if (proxyTarget != null && proxyTarget.target != null)
+            return proxyTarget.target;
+
+        Transform current = tag.transform;
+
+        while (current.parent != null)
+        {
+            if (current.parent.name == "Nodes")
+                return current.gameObject;
+
+            current = current.parent;
+        }
+
+        return tag.gameObject;
     }
 }
