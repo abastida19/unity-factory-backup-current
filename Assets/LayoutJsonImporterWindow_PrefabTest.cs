@@ -217,6 +217,7 @@ public class LayoutJsonImporterWindow_PrefabTest : EditorWindow
         camGo.AddComponent<MachineClickManager>();
         camGo.AddComponent<MachineHoverHighlight>();
         camGo.AddComponent<MachineSelectionOutlineManager>();
+        camGo.AddComponent<CameraFocusController>();
 
         if (uiCanvasPrefab != null)
         {

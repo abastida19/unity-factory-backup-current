@@ -118,6 +118,9 @@ public class MachineClickManager : MonoBehaviour
         if (MachineSelectionOutlineManager.Instance != null)
             MachineSelectionOutlineManager.Instance.Select(selectedObject);
 
+        if (CameraFocusController.Instance != null)
+            CameraFocusController.Instance.FocusOn(selectedObject);
+
         if (RelationManager.Instance != null)
             RelationManager.Instance.ShowRelationsForNode(tag.id);
         else
