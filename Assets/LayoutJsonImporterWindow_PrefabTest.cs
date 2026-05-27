@@ -215,6 +215,7 @@ public class LayoutJsonImporterWindow_PrefabTest : EditorWindow
         camGo.transform.rotation = Quaternion.Euler(0f, 0f, 0f);
         camGo.AddComponent<FreeFlyCameraController>();
         camGo.AddComponent<MachineClickManager>();
+        camGo.AddComponent<MachineHoverHighlight>();
 
         if (uiCanvasPrefab != null)
         {
@@ -717,6 +718,9 @@ public class LayoutJsonImporterWindow_PrefabTest : EditorWindow
         tag.machine_name = machineName;
         tag.process_step = processStep;
         tag.type = type;
+
+        var proxyTarget = proxy.AddComponent<ClickProxyTarget>();
+        proxyTarget.target = target;
     }
 
     private static void ApplyTagToHierarchy(GameObject root, string id, string machineName, string processStep, string type)
