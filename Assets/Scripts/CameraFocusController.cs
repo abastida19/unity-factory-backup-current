@@ -5,9 +5,9 @@ public class CameraFocusController : MonoBehaviour
     public static CameraFocusController Instance;
 
     [Header("General Focus")]
-    public float rotationSpeed = 4f;
-    public float moveSpeed = 3f;
-    public float focusDuration = 1.4f;
+    public float rotationSpeed = 3.5f;
+    public float moveSpeed = 2.5f;
+    public float focusDuration = 1.8f;
 
     [Header("Relation View")]
     public float relationDistanceMultiplier = 2.2f;
@@ -68,13 +68,44 @@ public class CameraFocusController : MonoBehaviour
         if (target == null)
             return;
 
-        Bounds b;
-        if (TryGetBounds(target, out b))
-            targetPoint = b.center;
-        else
-            targetPoint = target.transform.position;
+        Bounds machineBounds;
 
-        rotateOnly = true;
+        if (!TryGetBounds(target, out machineBounds))
+        {
+            targetPoint = target.transform.position;
+            rotateOnly = true;
+            timer = 0f;
+            isFocusing = true;
+            return;
+        }
+
+        // Look at the upper-middle part of the machine
+        targetPoint = new Vector3(
+            machineBounds.center.x,
+            Mathf.Lerp(machineBounds.center.y, machineBounds.max.y, 0.65f),
+            machineBounds.center.z
+        );
+
+        // Machine size determines how far the camera should stand away
+        float machineSize = Mathf.Max(
+            machineBounds.size.x,
+            machineBounds.size.z,
+            machineBounds.size.y
+        );
+
+        // Good inspection distance
+        float distance = Mathf.Clamp(machineSize * 3.9f, 14f, 40f);
+
+        // Slightly above the highest point of the machine
+        float height = Mathf.Clamp(machineBounds.size.y * 2.5f, 9f, 26f);
+
+        // Camera comes from a diagonal side, not directly front/top
+        Vector3 sideDirection = new Vector3(-0.7f, 0f, 0.7f).normalized;
+
+        targetPosition = targetPoint + sideDirection * distance;
+        targetPosition.y = machineBounds.max.y + height;
+
+        rotateOnly = false;
         timer = 0f;
         isFocusing = true;
     }

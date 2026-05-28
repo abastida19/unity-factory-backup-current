@@ -56,7 +56,7 @@ public class LayoutJsonImporterWindow_PrefabTest : EditorWindow
     private float connectorThickness = 0.12f;
 
     private int minRelationWeight = 7;
-    private bool showLegend = true;
+    private bool showLegend = false;
 
     [MenuItem("Tools/Layout/Import JSON (Prefab Library)")]
     public static void ShowWindow()
@@ -116,7 +116,7 @@ public class LayoutJsonImporterWindow_PrefabTest : EditorWindow
         connectorHeight = EditorGUILayout.FloatField("Base Connector Height", connectorHeight);
         connectorThickness = EditorGUILayout.FloatField("Connector Thickness", connectorThickness);
         minRelationWeight = EditorGUILayout.IntSlider("Minimum Relation Weight", minRelationWeight, 1, 10);
-        showLegend = EditorGUILayout.Toggle("Show Legend", showLegend);
+        //showLegend = EditorGUILayout.Toggle("Show Legend", showLegend);
 
         EditorGUILayout.Space(12);
 
@@ -341,9 +341,10 @@ public class LayoutJsonImporterWindow_PrefabTest : EditorWindow
                 Vector3 start = GetTopCenter(fromGo);
                 Vector3 end = GetTopCenter(toGo);
 
-                Color edgeColor = GetWeightColorDiscrete(e.weight);
+                Color edgeColor = GetRelationTypeColor(e.relation, e.weight);
                 float relationHeight = connectorHeight + GetRelationHeightOffset(e.relation);
                 float indexOffset = (edgeIndex % 5) * 0.12f;
+                float styledThickness = connectorThickness * GetRelationThicknessMultiplier(e.relation);
 
                 GameObject connectorRoot = CreateThreeSegmentConnector(
                     edgesParent.transform,
@@ -351,7 +352,7 @@ public class LayoutJsonImporterWindow_PrefabTest : EditorWindow
                     start,
                     end,
                     relationHeight + indexOffset,
-                    connectorThickness,
+                    styledThickness,
                     edgeColor
                 );
 
@@ -380,8 +381,8 @@ public class LayoutJsonImporterWindow_PrefabTest : EditorWindow
             }
         }
 
-        if (showLegend)
-            CreateLegend(rootGo.transform, bounds, hasBounds);
+        //if (showLegend)
+            //CreateLegend(rootGo.transform, bounds, hasBounds);
 
         bool saved = EditorSceneManager.SaveScene(scene, outSceneAssetPath);
         AssetDatabase.SaveAssets();
@@ -642,6 +643,65 @@ public class LayoutJsonImporterWindow_PrefabTest : EditorWindow
             case 2: return new Color(1f, 0.96f, 0.82f, 1f);
             case 1: return Color.white;
             default: return Color.white;
+        }
+    }
+
+    private static Color GetRelationTypeColor(string relation, float weight)
+    {
+        switch (relation)
+        {
+            case "material_flow":
+                // Flow / product movement.
+                return new Color(0.1f, 0.75f, 1f, 1f); // cyan-blue
+
+            case "keep_out":
+                // Warning / separation required.
+                return new Color(1f, 0.08f, 0.02f, 1f); // red
+
+            case "distance":
+                return new Color(1f, 0.55f, 0f, 1f); // orange
+
+            case "adjacency_preferred":
+                // Preferred closeness.
+                return new Color(0.2f, 1f, 0.35f, 1f); // green
+
+            case "same_line":
+                // Alignment relation.
+                return new Color(0.75f, 0.35f, 1f, 1f); // purple
+
+            case "order_along_axis":
+                // Technical ordering relation.
+                return new Color(0.9f, 0.9f, 0.9f, 1f); // light gray
+
+            default:
+                return Color.white;
+        }
+    }
+
+    private static float GetRelationThicknessMultiplier(string relation)
+    {
+        switch (relation)
+        {
+            case "material_flow":
+                return 1.2f;
+
+            case "keep_out":
+                return 1.5f;
+
+            case "distance":
+                return 0.9f;
+
+            case "adjacency_preferred":
+                return 1.0f;
+
+            case "same_line":
+                return 0.75f;
+
+            case "order_along_axis":
+                return 0.75f;
+
+            default:
+                return 1.0f;
         }
     }
 
