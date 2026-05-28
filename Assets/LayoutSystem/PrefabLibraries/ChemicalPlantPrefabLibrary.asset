@@ -73,3 +73,27 @@ MonoBehaviour:
     extraScale: {x: 1, y: 1, z: 1}
     rotation: {x: -90, y: 90, z: 0}
     offset: {x: 0, y: 0, z: 0}
+  - nodeId: feed_buffer
+    machineName: feed_buffer
+    prefab: {fileID: 919132149155446097, guid: 2085f14e4da7b0a418513f815aeee8fc, type: 3}
+    extraScale: {x: 1, y: 1, z: 1}
+    rotation: {x: 0, y: 0, z: 0}
+    offset: {x: 0, y: 0, z: 0}
+  - nodeId: reactor_CSTR_C
+    machineName: reactor_CSTR_C
+    prefab: {fileID: 919132149155446097, guid: d6b8d46a48f3af4499eed8e0cf36a132, type: 3}
+    extraScale: {x: 1, y: 1, z: 1}
+    rotation: {x: 0, y: 0, z: 0}
+    offset: {x: 0, y: 0, z: 0}
+  - nodeId: finishing_skid
+    machineName: finishing_skid
+    prefab: {fileID: 919132149155446097, guid: 7bf5fe0b7a6f8744081b3484c4af1c1a, type: 3}
+    extraScale: {x: 1, y: 1, z: 1}
+    rotation: {x: 0, y: 0, z: 0}
+    offset: {x: 0, y: 0, z: 0}
+  - nodeId: inline_PAT
+    machineName: inline_PAT
+    prefab: {fileID: 919132149155446097, guid: a668867c743e73c4d8ce71cd090d3d12, type: 3}
+    extraScale: {x: 1, y: 1, z: 1}
+    rotation: {x: 0, y: 0, z: 0}
+    offset: {x: 0, y: 0, z: 0}
