@@ -476,6 +476,12 @@ public class LayoutJsonImporterWindow_PrefabTest : EditorWindow
         visual.segB = segB;
         visual.segC = segC;
 
+        var flow = connectorRoot.AddComponent<RelationFlowAnimator>();
+
+        if (segA != null) flow.segA = segA.transform;
+        if (segB != null) flow.segB = segB.transform;
+        if (segC != null) flow.segC = segC.transform;
+
         TextMesh startLabel = CreateWorldLabel(
             connectorRoot.transform,
             "StartLabel",
@@ -528,8 +534,8 @@ public class LayoutJsonImporterWindow_PrefabTest : EditorWindow
 
         var tm = labelGo.AddComponent<TextMesh>();
         tm.text = text;
-        tm.characterSize = 0.12f;
-        tm.fontSize = 48;
+        tm.characterSize = 0.14f;
+        tm.fontSize = 50;
         tm.anchor = TextAnchor.MiddleCenter;
         tm.alignment = TextAlignment.Center;
         tm.color = Color.black;

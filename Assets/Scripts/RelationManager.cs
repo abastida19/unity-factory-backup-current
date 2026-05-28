@@ -93,8 +93,21 @@ public class RelationManager : MonoBehaviour
     {
         foreach (var record in relationRecords)
         {
-            if (record != null && record.relationObject != null)
-                record.relationObject.SetActive(false);
+            if (record == null || record.relationObject == null)
+                continue;
+
+            RelationVisual visual = record.relationObject.GetComponent<RelationVisual>();
+            if (visual != null)
+            {
+                visual.ResetToRelationColor();
+                visual.HideLabels();
+            }
+
+            RelationFlowAnimator flow = record.relationObject.GetComponent<RelationFlowAnimator>();
+            if (flow != null)
+                flow.StopFlow();
+
+            record.relationObject.SetActive(false);
         }
     }
 
@@ -110,6 +123,10 @@ public class RelationManager : MonoBehaviour
         RelationVisual visual = selectedRelation.GetComponent<RelationVisual>();
         if (visual != null)
             visual.ShowAsSelectedRelation();
+
+        RelationFlowAnimator flow = selectedRelation.GetComponent<RelationFlowAnimator>();
+        if (flow != null)
+            flow.StartFlow();
 
         Debug.Log("Showing only selected relation: " + selectedRelation.name);
     }

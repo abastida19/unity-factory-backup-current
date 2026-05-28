@@ -66,6 +66,44 @@ public class RelationVisual : MonoBehaviour
         if (segC != null) segC.sharedMaterial = relationMaterial;
     }
 
+    public void HideLabels()
+    {
+        if (startLabel != null)
+            startLabel.gameObject.SetActive(false);
+
+        if (endLabel != null)
+            endLabel.gameObject.SetActive(false);
+    }
+
+    public void ShowDirectionLabels()
+    {
+        if (startLabel != null)
+        {
+            startLabel.text = "FROM:\n" + CleanName(from);
+            startLabel.gameObject.SetActive(true);
+        }
+
+        if (endLabel != null)
+        {
+            endLabel.text = "TO:\n" + CleanName(to);
+            endLabel.gameObject.SetActive(true);
+        }
+    }
+
+    private string CleanName(string value)
+    {
+        if (string.IsNullOrWhiteSpace(value))
+            return "unknown";
+
+        return value
+            .Replace("_station", "")
+            .Replace("_farm", "")
+            .Replace("_skid", "")
+            .Replace("_plant", "")
+            .Replace("_module", "")
+            .Replace("_", " ");
+    }
+
     public void SetHover(bool hover)
     {
         if (isHovering == hover)
@@ -116,7 +154,12 @@ public class RelationVisual : MonoBehaviour
     {
         ResetToRelationColor();
 
+        if (blackMaterial == null)
+            BuildMaterials();
+
         if (segA != null)
             segA.sharedMaterial = blackMaterial;
+
+        ShowDirectionLabels();
     }
 }
