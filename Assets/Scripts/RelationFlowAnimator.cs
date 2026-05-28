@@ -16,6 +16,7 @@ public class RelationFlowAnimator : MonoBehaviour
     private float totalLength;
     private float distanceTravelled;
     private bool isPlaying;
+    public string relationType;
 
     void Awake()
     {
@@ -39,6 +40,15 @@ public class RelationFlowAnimator : MonoBehaviour
 
     public void StartFlow()
     {
+        if (relationType != "material_flow")
+        {
+            StopFlow();
+            Debug.Log("No flow animation for relation type: " + relationType);
+            return;
+        }
+
+        Debug.Log("Starting flow animation on: " + gameObject.name);
+
         BuildPath();
 
         if (dot == null)

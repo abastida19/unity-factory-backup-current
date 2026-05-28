@@ -355,9 +355,17 @@ public class LayoutJsonImporterWindow_PrefabTest : EditorWindow
                     edgeColor
                 );
 
+                RelationFlowAnimator flow = connectorRoot.GetComponent<RelationFlowAnimator>();
+                if (flow != null)
+                    flow.relationType = e.relation;
+
                 var visual = connectorRoot.GetComponent<RelationVisual>();
                 if (visual != null)
+                {
                     visual.Setup(e.from, e.to, edgeColor);
+                    visual.relationType = e.relation;
+                    visual.relationWeight = e.weight;
+                }
 
                 var info = connectorRoot.AddComponent<RelationInfo>();
                 info.from = e.from;
@@ -486,23 +494,35 @@ public class LayoutJsonImporterWindow_PrefabTest : EditorWindow
             connectorRoot.transform,
             "StartLabel",
             "",
-            p1 + new Vector3(0.25f, 0.25f, 0.25f)
+            p1 + new Vector3(0.25f, 0.35f, 0.25f)
         );
 
         TextMesh endLabel = CreateWorldLabel(
             connectorRoot.transform,
             "EndLabel",
             "",
-            p2 + new Vector3(0.25f, 0.25f, 0.25f)
+            p2 + new Vector3(0.25f, 0.35f, 0.25f)
+        );
+
+        Vector3 centerLabelPos = Vector3.Lerp(p1, p2, 0.5f) + new Vector3(0f, 0.45f, 0f);
+
+        TextMesh typeLabel = CreateWorldLabel(
+            connectorRoot.transform,
+            "TypeLabel",
+            "",
+            centerLabelPos
         );
 
         startLabel.gameObject.SetActive(false);
         endLabel.gameObject.SetActive(false);
+        typeLabel.gameObject.SetActive(false);
 
         visual.startLabel = startLabel;
         visual.endLabel = endLabel;
+        visual.typeLabel = typeLabel;
 
         return connectorRoot;
+
     }
 
     private static Renderer CreateCylinderBetween(Transform parent, string name, Vector3 a, Vector3 b, float thickness, Color color)

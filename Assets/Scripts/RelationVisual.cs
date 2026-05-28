@@ -11,6 +11,9 @@ public class RelationVisual : MonoBehaviour
 
     public TextMesh startLabel;
     public TextMesh endLabel;
+    public TextMesh typeLabel;
+    public string relationType;
+    public float relationWeight;
 
     [SerializeField] private Color relationColor = Color.white;
 
@@ -73,6 +76,9 @@ public class RelationVisual : MonoBehaviour
 
         if (endLabel != null)
             endLabel.gameObject.SetActive(false);
+
+        if (typeLabel != null)
+            typeLabel.gameObject.SetActive(false);
     }
 
     public void ShowDirectionLabels()
@@ -161,5 +167,62 @@ public class RelationVisual : MonoBehaviour
             segA.sharedMaterial = blackMaterial;
 
         ShowDirectionLabels();
+        ShowTypeLabel();
+    }
+
+    public void ShowTypeLabel()
+    {
+        if (typeLabel == null)
+            return;
+
+        typeLabel.text = GetRelationTypeDisplayText();
+        typeLabel.gameObject.SetActive(true);
+    }
+
+    private string GetRelationTypeDisplayText()
+    {
+        string readableType = GetReadableRelationType(relationType);
+
+        if (relationType == "keep_out")
+        {
+            return readableType + "\nSeparation required";
+        }
+
+        if (relationType == "material_flow")
+        {
+            return readableType + "\nWeight " + relationWeight + "/10";
+        }
+
+        return readableType + "\nWeight " + relationWeight + "/10";
+    }
+
+    private string GetReadableRelationType(string value)
+    {
+        if (string.IsNullOrWhiteSpace(value))
+            return "RELATION";
+
+        switch (value)
+        {
+            case "material_flow":
+                return "MATERIAL FLOW";
+
+            case "keep_out":
+                return "KEEP OUT";
+
+            case "distance":
+                return "DISTANCE CONSTRAINT";
+
+            case "adjacency_preferred":
+                return "ADJACENCY PREFERRED";
+
+            case "same_line":
+                return "SAME LINE";
+
+            case "order_along_axis":
+                return "ORDER ALONG AXIS";
+
+            default:
+                return value.Replace("_", " ").ToUpper();
+        }
     }
 }
